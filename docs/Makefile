@@ -11,10 +11,24 @@ site:
 	$(jekyll) serve --drafts --livereload --config _config.yml
 
 build:
-	$(jekyll_production) build --config _config.yml $(if $(BASEURL),--baseurl "$(BASEURL)") $(if $(SITE_URL),--url "$(SITE_URL)")
+	@if [ -n "$(SITE_URL)" ]; then \
+		runtime_config="$$(mktemp)"; \
+		printf 'url: "%s"\n' "$(SITE_URL)" > "$$runtime_config"; \
+		$(jekyll_production) build --config _config.yml,"$$runtime_config" $(if $(BASEURL),--baseurl "$(BASEURL)"); \
+		rm -f "$$runtime_config"; \
+	else \
+		$(jekyll_production) build --config _config.yml $(if $(BASEURL),--baseurl "$(BASEURL)"); \
+	fi
 
 build-preview:
-	$(jekyll_preview) build --config _config.yml --baseurl "$(BASEURL)" --url "$(SITE_URL)"
+	@if [ -n "$(SITE_URL)" ]; then \
+		runtime_config="$$(mktemp)"; \
+		printf 'url: "%s"\n' "$(SITE_URL)" > "$$runtime_config"; \
+		$(jekyll_preview) build --config _config.yml,"$$runtime_config" --baseurl "$(BASEURL)"; \
+		rm -f "$$runtime_config"; \
+	else \
+		$(jekyll_preview) build --config _config.yml --baseurl "$(BASEURL)"; \
+	fi
 
 docker:
 	docker run --name getnighthawk --rm -p 4000:4000 -v `pwd`:"/srv/jekyll" jekyll/jekyll:4.0.0 bash -c "bundle install; jekyll serve --drafts --livereload --config _config.yml"

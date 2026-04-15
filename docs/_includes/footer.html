@@ -82,7 +82,7 @@
 		<script>
 
 		function resetCopyText(element) {
-			let childElements = element.childNodes
+			var childElements = element.childNodes
 			childElements[3].innerHTML="Copy to clipboard";
 		}
 
@@ -91,7 +91,7 @@
 			console.info('Action:', e.action);
 			console.info('Text:', e.text);
 			console.info('Trigger:', e.trigger);
-			let childElements = e.trigger.childNodes;
+			var childElements = e.trigger.childNodes;
 			childElements[3].innerHTML = "Copied!";
 			e.clearSelection();
 		});
@@ -107,7 +107,7 @@
 				var element = document.getElementById(divId);
 				element.classList.toggle("showDiv");
 				var toggleDivs = document.getElementsByClassName("toggle");
-				for(let i=0; i<toggleDivs.length; i++) {
+				for(var i=0; i<toggleDivs.length; i++) {
 					if(toggleDivs[i] != element)
 						toggleDivs[i].classList.remove("showDiv");
 				}
