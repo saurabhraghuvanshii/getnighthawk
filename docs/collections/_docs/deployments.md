@@ -9,7 +9,7 @@ section: "Getting Started"
 <img src="{{ site.baseurl }}/assets/images/screenshots/meshery-nighthawk.png" style="padding:2%"/>
 _Single instance deployment with Meshery_
 
-## Deployment: Distributed
+## Deployment: Distribute
 
 <img src="{{ site.baseurl }}/assets/images/screenshots/meshery-nighthawk.png" style="padding:2%"/>
 _Distributed deployment with Meshery_
